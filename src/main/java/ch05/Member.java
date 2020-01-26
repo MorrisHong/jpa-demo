@@ -1,9 +1,17 @@
 package ch05;
 
+import javax.persistence.*;
+
+@Entity
 public class Member {
+
+    @Id @GeneratedValue
+    @Column(name = "member_id")
     private String id;
     private String username;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
     private Team team;
 
     public Member(String id, String username) {
