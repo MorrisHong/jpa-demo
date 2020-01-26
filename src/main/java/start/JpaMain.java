@@ -22,7 +22,7 @@ public class JpaMain {
              * 비즈니스로직
              */
 //            logic(em);
-            testDetach(em);
+            testDetached(em);
             tx.commit();
         }catch (Exception e) {
             tx.rollback();
