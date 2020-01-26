@@ -21,7 +21,8 @@ public class JpaMain {
             /**
              * 비즈니스로직
              */
-            logic(em);
+//            logic(em);
+            testDetach(em);
             tx.commit();
         }catch (Exception e) {
             tx.rollback();
@@ -56,5 +57,17 @@ public class JpaMain {
 
         //삭제
         em.remove(member);
+    }
+
+    public static void testDetached(EntityManager em) {
+        Member member = new Member();
+        member.setId("memberA");
+        member.setUsername("Geumbo");
+
+        em.persist(member);
+
+        em.detach(member);
+
+        em.getTransaction().commit();
     }
 }
