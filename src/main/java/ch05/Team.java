@@ -1,6 +1,8 @@
 package ch05;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Team {
@@ -10,9 +12,8 @@ public class Team {
     private Long id;
     private String name;
 
-
-    public Team() {
-    }
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<>();
 
 
     public String getName() {

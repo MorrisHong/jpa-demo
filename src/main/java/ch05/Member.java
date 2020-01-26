@@ -14,9 +14,6 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Member() {
-    }
-
     public String getUsername() {
         return username;
     }
