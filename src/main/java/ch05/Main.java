@@ -32,6 +32,9 @@ public class Main {
             member2.setTeam(team1);
             em.persist(member2);
 
+            JpqlSearch jpqlSearch = new JpqlSearch();
+            jpqlSearch.queryLogicJoin(em);
+
             tx.commit();
 
         }catch (Exception e) {
@@ -43,20 +46,20 @@ public class Main {
 
     }
 
-    private static void queryLogicJoin(EntityManager em) {
-
-        System.out.println("========================================================");
-
-
-        String jpql = "select m from Member as m join m.team as t where "+
-                "t.name=:teamName";
-
-        List<Member> members = em.createQuery(jpql, Member.class)
-                .setParameter("teamName", "팀1")
-                .getResultList();
-
-        for(Member m : members) {
-            System.out.println("[query] member.username = " + m.getUsername());
-        }
-    }
+//    private static void queryLogicJoin(EntityManager em) {
+//
+//        System.out.println("========================================================");
+//
+//
+//        String jpql = "select m from Member as m join m.team as t where "+
+//                "t.name=:teamName";
+//
+//        List<Member> members = em.createQuery(jpql, Member.class)
+//                .setParameter("teamName", "팀1")
+//                .getResultList();
+//
+//        for(Member m : members) {
+//            System.out.println("[query] member.username = " + m.getUsername());
+//        }
+//    }
 }
