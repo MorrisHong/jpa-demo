@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,18 +21,20 @@ public class Main {
             em.persist(team1);
 
             Member member1 = new Member("member1", "회원1");
-            em.persist(member1);
             member1.setTeam(team1);
+            em.persist(member1);
+
 
             Member member2 = new Member("member2", "회원2");
-            em.persist(member2);
             member2.setTeam(team1);
+            em.persist(member2);
 
-            Team findTeam = member1.getTeam();
 
-            System.out.println(findTeam.getName());
+//            JpqlSearch jpqlSearch = new JpqlSearch();
+            queryLogicJoin(em);
 
             tx.commit();
+
         }catch (Exception e) {
             tx.rollback();
         }finally {
@@ -39,5 +42,22 @@ public class Main {
         }
         emf.close();
 
+    }
+
+    private static void queryLogicJoin(EntityManager em) {
+
+        System.out.println("========================================================");
+
+
+        String jpql = "select m from Member as m join m.team as t where "+
+                "t.name=:teamName";
+
+        List<Member> members = em.createQuery(jpql, Member.class)
+                .setParameter("teamName", "팀1")
+                .getResultList();
+
+        for(Member m : members) {
+            System.out.println("[query] member.username = " + m.getUsername());
+        }
     }
 }
