@@ -17,21 +17,20 @@ public class Main {
         try {
             tx.begin();
 
-            Team team1 = new Team("team1", "팀1");
+            Team team1 = new Team();
+            team1.setName("팀1");
             em.persist(team1);
 
-            Member member1 = new Member("member1", "회원1");
+            Member member1 = new Member();
+            member1.setUsername("회원1");
             member1.setTeam(team1);
             em.persist(member1);
 
 
-            Member member2 = new Member("member2", "회원2");
+            Member member2 = new Member();
+            member2.setUsername("회원2");
             member2.setTeam(team1);
             em.persist(member2);
-
-
-//            JpqlSearch jpqlSearch = new JpqlSearch();
-            queryLogicJoin(em);
 
             tx.commit();
 

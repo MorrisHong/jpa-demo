@@ -5,26 +5,16 @@ import javax.persistence.*;
 @Entity
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private String id;
+    private Long id;
     private String username;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Member(String id, String username) {
-        this.id = id;
-        this.username = username;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Member() {
     }
 
     public String getUsername() {
